@@ -20340,7 +20340,7 @@ var render = function () {
             var title = ref.title
             var post_text = ref.post_text
             var created_at = ref.created_at
-            var category_id = ref.category_id
+            var category = ref.category
             return _c("tr", { key: id }, [
               _c("td", [_vm._v(_vm._s(title))]),
               _vm._v(" "),
@@ -20348,7 +20348,7 @@ var render = function () {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(created_at))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(category_id))]),
+              _c("td", [_vm._v(_vm._s(category))]),
               _vm._v(" "),
               _c("td", [_vm._v("buy")]),
             ])

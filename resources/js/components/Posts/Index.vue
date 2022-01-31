@@ -15,11 +15,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="{id, title, post_text, created_at, category_id} in posts.data" :key="id">
+            <tr v-for="{id, title, post_text, created_at, category} in posts.data" :key="id">
                 <td>{{ title }}</td>
                 <td>{{ post_text.substring(0, 50) + '...' }}</td>
                 <td>{{ created_at }}</td>
-                <td>{{ category_id  }}</td>
+                <td>{{ category  }}</td>
                 <td>buy</td>
             </tr>
             </tbody>
