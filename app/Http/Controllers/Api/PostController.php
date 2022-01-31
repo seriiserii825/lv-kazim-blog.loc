@@ -16,13 +16,14 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $query = Post::query()->orderByDesc('created_at');
+        $sort_field = $request->get('sort_field');
+        $sort_direction = $request->get('sort_direction');
 
         if (!empty($value = $request->get('category_id'))) {
             $query->where('category_id', $value);
         }
 
-        return PostResource::collection($query->paginate(4));
-
+        return PostResource::collection($query->orderBy($sort_field, $sort_direction)->paginate(4));
     }
 
     /**

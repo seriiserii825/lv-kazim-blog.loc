@@ -19,7 +19,7 @@
 <body class="antialiased">
 <div id="app">
     <div class="container">
-        <posts-index></posts-index>
+        <app></app>
     </div>
 </div>
 <script src="{{ mix('js/app.js', 'build') }}" async defer></script>

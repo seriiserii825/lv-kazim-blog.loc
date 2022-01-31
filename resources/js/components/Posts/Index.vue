@@ -7,10 +7,26 @@
         <table class="table table-striped mt-5">
             <thead>
             <tr>
-                <td>Title from Vue</td>
-                <td>Post text</td>
-                <td>Created at</td>
-                <td>Category</td>
+                <td>
+                    <a href="#" @click.prevent="sortTable('title')">Title</a>
+                    <span v-if="sort_field === 'title' && sort_direction === 'asc'">&uarr;</span>
+                    <span v-if="sort_field === 'title' && sort_direction === 'desc'">&darr;</span>
+                </td>
+                <td>
+                    <a href="#" @click.prevent="sortTable('post_text')">Title</a>
+                    <span v-if="sort_field === 'post_text' && sort_direction === 'asc'">&uarr;</span>
+                    <span v-if="sort_field === 'post_text' && sort_direction === 'desc'">&darr;</span>
+                </td>
+                <td>
+                    <a href="#" @click.prevent="sortTable('created_at')">Created at</a>
+                    <span v-if="sort_field === 'created_at' && sort_direction === 'asc'">&uarr;</span>
+                    <span v-if="sort_field === 'created_at' && sort_direction === 'desc'">&darr;</span>
+                </td>
+                <td>
+                    <a href="#" @click.prevent="sortTable('category_id')">Category</a>
+                    <span v-if="sort_field === 'category_id' && sort_direction === 'asc'">&uarr;</span>
+                    <span v-if="sort_field === 'category_id' && sort_direction === 'desc'">&darr;</span>
+                </td>
                 <td>Actions</td>
             </tr>
             </thead>
@@ -19,7 +35,7 @@
                 <td>{{ title }}</td>
                 <td>{{ post_text.substring(0, 50) + '...' }}</td>
                 <td>{{ created_at }}</td>
-                <td>{{ category  }}</td>
+                <td>{{ category }}</td>
                 <td>buy</td>
             </tr>
             </tbody>
@@ -33,12 +49,27 @@ export default {
         return {
             posts: {},
             categories: [],
-            category_id: ''
+            category_id: '',
+            sort_field: 'created_at',
+            sort_direction: 'desc'
         }
     },
     methods: {
+        sortTable(field) {
+            if (this.sort_field === field) {
+                this.sort_direction = this.sort_direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                this.sort_field = field;
+                this.sort_direction = 'asc';
+            }
+            this.getResults();
+        },
         getResults(page = 1) {
-            axios.get('/api/posts?page=' + page + '&category_id=' + this.category_id)
+            axios.get('/api/posts?page=' + page
+                + '&category_id=' + this.category_id
+                + '&sort_field=' + this.sort_field
+                + '&sort_direction=' + this.sort_direction
+            )
                 .then(response => {
                     this.posts = response.data;
                 });
@@ -51,7 +82,7 @@ export default {
         }
     },
     watch: {
-        category_id(){
+        category_id() {
             this.getResults();
         }
     },
