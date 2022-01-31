@@ -2095,8 +2095,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/api/posts').then(function (res) {
-      _this.posts = res.data;
-      console.log(_this.posts, 'this.posts');
+      _this.posts = res.data.data; // console.log(this.posts, 'this.posts')
     });
   }
 });
@@ -19674,7 +19673,7 @@ var render = function () {
             return _c("tr", { key: id }, [
               _c("td", [_vm._v(_vm._s(title))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(post_text))]),
+              _c("td", [_vm._v(_vm._s(post_text.substring(0, 50) + "..."))]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(created_at))]),
               _vm._v(" "),
