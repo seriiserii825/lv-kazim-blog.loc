@@ -18,7 +18,9 @@
 </head>
 <body class="antialiased">
 <div id="app">
-    <posts-index></posts-index>
+    <div class="container">
+        <posts-index></posts-index>
+    </div>
 </div>
 <script src="{{ mix('js/app.js', 'build') }}" async defer></script>
 </body>

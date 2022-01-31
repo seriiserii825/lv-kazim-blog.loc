@@ -1,5 +1,5 @@
 <template>
-    <table class="table">
+    <table v-if="posts.length" class="table table-striped mt-5">
         <thead>
         <tr>
             <td>Title from Vue</td>
@@ -9,24 +9,27 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>First post</td>
-            <td>First post text</td>
-            <td>08-10-2022</td>
-            <td>buy</td>
-        </tr>
-        <tr>
-            <td>Second post</td>
-            <td>Second post text</td>
-            <td>08-10-2022</td>
-            <td>buy</td>
-        </tr>
-        <tr>
-            <td>Third post</td>
-            <td>Third post text</td>
-            <td>08-10-2022</td>
+        <tr v-for="{id, title, post_text, created_at} in posts" :key="id">
+            <td>{{ title }}</td>
+            <td>{{ post_text }}</td>
+            <td>{{ created_at }}</td>
             <td>buy</td>
         </tr>
         </tbody>
     </table>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            posts: []
+        }
+    },
+    mounted() {
+        axios.get('/api/posts').then(res => {
+            this.posts = res.data;
+            console.log(this.posts, 'this.posts')
+        });
+    }
+}
+</script>
