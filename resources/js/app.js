@@ -2,28 +2,13 @@ require('./bootstrap');
 
 import Vue from "vue";
 import VueRouter from "vue-router";
+import App from "./components/App";
+import routes from "./routes";
 
 Vue.use(VueRouter);
-
-import App from "./components/App";
-import PostsIndex from "./components/Posts/Index";
-import PostsCreate from "./components/Posts/Create";
-
 Vue.component('pagination', require('laravel-vue-pagination'));
 
-const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: "/",
-            component: PostsIndex
-        },
-        {
-            path: "/posts/create",
-            component: PostsCreate
-        }
-    ]
-});
+const router = new VueRouter(routes);
 
 const app = new Vue({
     el: '#app',

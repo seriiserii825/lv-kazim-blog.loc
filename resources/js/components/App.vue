@@ -2,9 +2,13 @@
     <div>
         <div class="row">
             <div class="d-flex justify-content-start">
-                <ul class="navbar">
-                    <router-link to="/" class="nav-link btn btn-outline-primary mr-3">Posts list</router-link>
-                    <router-link to="/posts/create" class="nav-link btn btn-outline-primary">Posts create</router-link>
+                <ul class="navbar-nav d-flex flex-row border-bottom">
+                    <li class="nav-item">
+                        <router-link exact :to="{name: 'posts.index'}" class="nav-link mr-3">Posts list</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link exact :to="{name: 'posts.create'}" class="nav-link">Posts create</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

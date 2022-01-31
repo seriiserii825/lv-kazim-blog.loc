@@ -15,6 +15,12 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css', 'build') }}" rel="stylesheet">
+    <style>
+        .router-link-active {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
 </head>
 <body class="antialiased">
 <div id="app">

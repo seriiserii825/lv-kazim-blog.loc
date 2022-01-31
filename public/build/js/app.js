@@ -2189,34 +2189,23 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue");
-/* harmony import */ var _components_Posts_Index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Posts/Index */ "./resources/js/components/Posts/Index.vue");
-/* harmony import */ var _components_Posts_Create__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Posts/Create */ "./resources/js/components/Posts/Create.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  mode: 'history',
-  routes: [{
-    path: "/",
-    component: _components_Posts_Index__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }, {
-    path: "/posts/create",
-    component: _components_Posts_Create__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }]
-});
-var app = new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"](_routes__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var app = new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
   el: '#app',
   components: {
-    App: _components_App__WEBPACK_IMPORTED_MODULE_2__["default"]
+    App: _components_App__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   router: router
 });
@@ -2251,6 +2240,37 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/routes/index.js":
+/*!**************************************!*\
+  !*** ./resources/js/routes/index.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _components_Posts_Index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Posts/Index */ "./resources/js/components/Posts/Index.vue");
+/* harmony import */ var _components_Posts_Create__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Posts/Create */ "./resources/js/components/Posts/Create.vue");
+
+
+var routes = {
+  mode: 'history',
+  routes: [{
+    path: "/",
+    component: _components_Posts_Index__WEBPACK_IMPORTED_MODULE_0__["default"],
+    name: "posts.index"
+  }, {
+    path: "/posts/create",
+    component: _components_Posts_Create__WEBPACK_IMPORTED_MODULE_1__["default"],
+    name: "posts.create"
+  }]
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (routes);
 
 /***/ }),
 
@@ -20486,27 +20506,40 @@ var render = function () {
         _c("div", { staticClass: "d-flex justify-content-start" }, [
           _c(
             "ul",
-            { staticClass: "navbar" },
+            { staticClass: "navbar-nav d-flex flex-row border-bottom" },
             [
               _c(
-                "router-link",
-                {
-                  staticClass: "nav-link btn btn-outline-primary mr-3",
-                  attrs: { to: "/" },
-                },
-                [_vm._v("Posts list")]
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link mr-3",
+                      attrs: { exact: "", to: { name: "posts.index" } },
+                    },
+                    [_vm._v("Posts list")]
+                  ),
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
-                "router-link",
-                {
-                  staticClass: "nav-link btn btn-outline-primary",
-                  attrs: { to: "/posts/create" },
-                },
-                [_vm._v("Posts create")]
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { exact: "", to: { name: "posts.create" } },
+                    },
+                    [_vm._v("Posts create")]
+                  ),
+                ],
+                1
               ),
-            ],
-            1
+            ]
           ),
         ]),
       ]),
