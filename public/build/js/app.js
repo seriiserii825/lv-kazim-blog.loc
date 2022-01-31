@@ -2088,10 +2088,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      posts: {}
+      posts: {},
+      categories: [],
+      category_id: ''
     };
   },
   methods: {
@@ -2099,13 +2107,26 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get('/api/posts?page=' + page).then(function (response) {
+      axios.get('/api/posts?page=' + page + '&category_id=' + this.category_id).then(function (response) {
         _this.posts = response.data;
       });
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      axios.get('/api/categories').then(function (response) {
+        _this2.categories = response.data.data;
+      });
+    }
+  },
+  watch: {
+    category_id: function category_id() {
+      this.getResults();
     }
   },
   mounted: function mounted() {
     this.getResults();
+    this.getCategories();
   }
 });
 
@@ -20263,34 +20284,78 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "pt-5" },
     [
-      _vm.posts.data.length
-        ? _c("table", { staticClass: "table table-striped mt-5" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.posts.data, function (ref) {
-                var id = ref.id
-                var title = ref.title
-                var post_text = ref.post_text
-                var created_at = ref.created_at
-                return _c("tr", { key: id }, [
-                  _c("td", [_vm._v(_vm._s(title))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _vm._v(_vm._s(post_text.substring(0, 50) + "...")),
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(created_at))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("buy")]),
-                ])
-              }),
-              0
-            ),
-          ])
-        : _vm._e(),
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.category_id,
+              expression: "category_id",
+            },
+          ],
+          staticClass: "form-control col-md-3",
+          on: {
+            change: function ($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function (o) {
+                  return o.selected
+                })
+                .map(function (o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.category_id = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            },
+          },
+        },
+        [
+          _c("option", { attrs: { value: "" } }, [
+            _vm._v("-- Choose category --"),
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.categories, function (ref) {
+            var id = ref.id
+            var title = ref.title
+            return _c("option", { domProps: { value: id } }, [
+              _vm._v(_vm._s(title)),
+            ])
+          }),
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("table", { staticClass: "table table-striped mt-5" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.posts.data, function (ref) {
+            var id = ref.id
+            var title = ref.title
+            var post_text = ref.post_text
+            var created_at = ref.created_at
+            var category_id = ref.category_id
+            return _c("tr", { key: id }, [
+              _c("td", [_vm._v(_vm._s(title))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(post_text.substring(0, 50) + "..."))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(created_at))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(category_id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v("buy")]),
+            ])
+          }),
+          0
+        ),
+      ]),
       _vm._v(" "),
       _c("pagination", {
         attrs: { data: _vm.posts },
@@ -20312,6 +20377,8 @@ var staticRenderFns = [
         _c("td", [_vm._v("Post text")]),
         _vm._v(" "),
         _c("td", [_vm._v("Created at")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Category")]),
         _vm._v(" "),
         _c("td", [_vm._v("Actions")]),
       ]),
