@@ -19603,7 +19603,7 @@ var staticRenderFns = [
     return _c("table", { staticClass: "table" }, [
       _c("thead", [
         _c("tr", [
-          _c("td", [_vm._v("Title")]),
+          _c("td", [_vm._v("Title from Vue")]),
           _vm._v(" "),
           _c("td", [_vm._v("Post text")]),
           _vm._v(" "),

@@ -2,7 +2,7 @@
     <table class="table">
         <thead>
         <tr>
-            <td>Title</td>
+            <td>Title from Vue</td>
             <td>Post text</td>
             <td>Created at</td>
             <td>Actions</td>

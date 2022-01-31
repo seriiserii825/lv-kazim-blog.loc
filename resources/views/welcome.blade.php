@@ -20,6 +20,6 @@
 <div id="app">
     <posts-index></posts-index>
 </div>
-<script src="{{ asset('js/app.js') }}" async defer></script>
+<script src="{{ mix('js/app.js', 'build') }}" async defer></script>
 </body>
 </html>
