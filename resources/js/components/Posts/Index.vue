@@ -37,7 +37,8 @@
                 <td>{{ created_at }}</td>
                 <td>{{ category }}</td>
                 <td>
-                    <router-link :to="{name: 'posts.edit', params: {id: id}}">Edit</router-link>
+                    <router-link class="btn btn-success" :to="{name: 'posts.edit', params: {id: id}}">Edit</router-link>
+                    <button class="btn btn-danger" @click="delete_post(id)">Delete</button>
                 </td>
             </tr>
             </tbody>
@@ -53,7 +54,8 @@ export default {
             categories: [],
             category_id: '',
             sort_field: 'created_at',
-            sort_direction: 'desc'
+            sort_direction: 'desc',
+            errors: {}
         }
     },
     methods: {
@@ -81,6 +83,13 @@ export default {
                 .then(response => {
                     this.categories = response.data.data;
                 });
+        },
+        delete_post(id){
+            axios.delete('/api/posts/' + id).then(res => {
+                this.getResults();
+            }).catch(error => {
+                this.errors = error.response.data.errors;
+            });
         }
     },
     watch: {

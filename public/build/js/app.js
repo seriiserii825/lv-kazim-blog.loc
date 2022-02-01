@@ -2298,6 +2298,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2305,7 +2306,8 @@ __webpack_require__.r(__webpack_exports__);
       categories: [],
       category_id: '',
       sort_field: 'created_at',
-      sort_direction: 'desc'
+      sort_direction: 'desc',
+      errors: {}
     };
   },
   methods: {
@@ -2332,6 +2334,15 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/categories').then(function (response) {
         _this2.categories = response.data.data;
+      });
+    },
+    delete_post: function delete_post(id) {
+      var _this3 = this;
+
+      axios["delete"]('/api/posts/' + id).then(function (res) {
+        _this3.getResults();
+      })["catch"](function (error) {
+        _this3.errors = error.response.data.errors;
       });
     }
   },
@@ -21342,9 +21353,23 @@ var render = function () {
                   _c(
                     "router-link",
                     {
+                      staticClass: "btn btn-success",
                       attrs: { to: { name: "posts.edit", params: { id: id } } },
                     },
                     [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function ($event) {
+                          return _vm.delete_post(id)
+                        },
+                      },
+                    },
+                    [_vm._v("Delete")]
                   ),
                 ],
                 1
