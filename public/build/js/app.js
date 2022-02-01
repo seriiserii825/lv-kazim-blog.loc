@@ -2071,7 +2071,85 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      categories: [],
+      fields: {
+        title: '',
+        post_text: '',
+        category_id: '',
+        thumbnail: null
+      },
+      errors: {},
+      form_submitting: false
+    };
+  },
+  methods: {
+    choose_file: function choose_file(event) {
+      this.fields.thumbnail = event.target.files[0];
+    },
+    submit_form: function submit_form() {
+      var _this = this;
+
+      this.form_submitting = true;
+      var fields = new FormData();
+
+      for (var key in this.fields) {
+        fields.append(key, this.fields[key]);
+      }
+
+      axios.post('/api/posts', fields).then(function (res) {
+        _this.$router.push('/');
+
+        _this.form_submitting = false;
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors;
+        _this.form_submitting = false;
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    axios.get('/api/categories').then(function (res) {
+      _this2.categories = res.data.data;
+    });
+  }
+});
 
 /***/ }),
 
@@ -20572,7 +20650,162 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n  Create new post\n")])
+  return _c("div", { staticClass: "row mt-5" }, [
+    _c("div", { staticClass: "col-md-4" }, [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function ($event) {
+              $event.preventDefault()
+              return _vm.submit_form.apply(null, arguments)
+            },
+          },
+        },
+        [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Title")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fields.title,
+                  expression: "fields.title",
+                },
+              ],
+              staticClass: "form-control",
+              attrs: { name: "title", type: "text" },
+              domProps: { value: _vm.fields.title },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.fields, "title", $event.target.value)
+                },
+              },
+            }),
+          ]),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.title
+            ? _c("div", { staticClass: "alert alert-danger" }, [
+                _vm._v(_vm._s(_vm.errors.title[0])),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Text")]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fields.post_text,
+                  expression: "fields.post_text",
+                },
+              ],
+              staticClass: "form-control",
+              attrs: { name: "text", rows: "5" },
+              domProps: { value: _vm.fields.post_text },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.fields, "post_text", $event.target.value)
+                },
+              },
+            }),
+          ]),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.post_text
+            ? _c("div", { staticClass: "alert alert-danger" }, [
+                _vm._v(_vm._s(_vm.errors.post_text[0])),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group mb-5" }, [
+            _c("label", [_vm._v("Category")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.category_id,
+                    expression: "fields.category_id",
+                  },
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: function ($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function (o) {
+                        return o.selected
+                      })
+                      .map(function (o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.fields,
+                      "category_id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  },
+                },
+              },
+              _vm._l(_vm.categories, function (ref) {
+                var id = ref.id
+                var title = ref.title
+                return _c("option", { key: id, domProps: { value: id } }, [
+                  _vm._v(_vm._s(title)),
+                ])
+              }),
+              0
+            ),
+          ]),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.category_id
+            ? _c("div", { staticClass: "alert alert-danger" }, [
+                _vm._v(_vm._s(_vm.errors.category_id[0])),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group mb-5" }, [
+            _c("label", [_vm._v("File")]),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { type: "file" },
+              on: { change: _vm.choose_file },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success",
+                attrs: { type: "submit", disabled: _vm.form_submitting },
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.form_submitting ? "Saving data..." : "Save") +
+                    "\n                "
+                ),
+              ]
+            ),
+          ]),
+        ]
+      ),
+    ]),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

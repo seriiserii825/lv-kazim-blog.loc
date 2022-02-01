@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -26,15 +27,14 @@ class PostController extends Controller
         return PostResource::collection($query->orderBy($sort_field, $sort_direction)->paginate(4));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        if($request->hasFile('thumbnail')){
+           $filename = $request->thumbnail->getClientOriginalName();
+           info($filename);
+        }
+        $post = Post::create($request->validated());
+        return new PostResource($post);
     }
 
     /**
