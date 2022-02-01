@@ -29,43 +29,25 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        if($request->hasFile('thumbnail')){
-           $filename = $request->thumbnail->getClientOriginalName();
-           info($filename);
-        }
+//        if($request->hasFile('thumbnail')){
+//           $filename = $request->thumbnail->getClientOriginalName();
+//           info($filename);
+//        }
         $post = Post::create($request->validated());
         return new PostResource($post);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return new PostResource($post);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(StorePostRequest $request, Post $post)
     {
-        //
+        $post->update($request->validated());
+        return new PostResource($post);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

@@ -24,7 +24,7 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:posts',
+            'title' => 'required|unique:posts,title,'.$this->title.',title',
             'post_text' => 'required',
             'category_id' => 'required',
         ];
